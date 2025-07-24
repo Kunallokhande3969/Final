@@ -2,41 +2,34 @@ import axios from "axios";
 
 // Create an Axios instance
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "http://localhost:8080/", // Use environment variable
-  withCredentials: true,
+  baseURL: process.env.REACT_APP_API_URL || "http://localhost:8080/",
+  withCredentials: true, // Needed if backend uses cookies/sessions
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
   },
 });
 
-// Add a request interceptor
+// Add a request interceptor for auth token
 instance.interceptors.request.use(
   (config) => {
-    // You can add authorization tokens here if needed
     const token = localStorage.getItem("authToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => {
-    // Handle request errors
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Add a response interceptor
+// Add a response interceptor for global error handling
 instance.interceptors.response.use(
-  (response) => {
-    // Handle successful responses
-    return response;
-  },
+  (response) => response,
   (error) => {
-    // Handle errors globally
     if (error.response && error.response.status === 401) {
-      // Handle unauthorized errors (e.g., redirect to login)
-      console.error("Unauthorized! Redirecting to login...");
+      // Optionally redirect to login or clear token
+      // window.location.href = "/login";
+      console.error("Unauthorized! Please log in.");
     }
     return Promise.reject(error);
   }
