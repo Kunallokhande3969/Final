@@ -15,7 +15,7 @@ const cors = require("cors");
 app.use(cors({
   origin: [
     "http://localhost:3000",
-    "https://jobandinternship-meykuaav9-kunal-lokhandes-projects.vercel.app"
+    "https://finald.vercel.app"
   ],
   credentials: true
 }));
