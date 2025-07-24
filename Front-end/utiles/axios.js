@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create an Axios instance
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "http://localhost:8080/",
+  baseURL: process.env.REACT_APP_API_URL ,
   withCredentials: true, // Needed if backend uses cookies/sessions
   headers: {
     "Content-Type": "application/json",
