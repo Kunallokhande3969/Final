@@ -12,13 +12,14 @@ require("./models/database").connectDatabase();
 
 // ===== CORS =====
 const cors = require("cors");
-app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://finald.vercel.app"
-  ],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "https://finald.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 // ===== Body Parsers =====
 app.use(express.json());
